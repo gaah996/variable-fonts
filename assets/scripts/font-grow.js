@@ -1,8 +1,13 @@
-document.addEventListener('scroll', event => {
-  var text = document.querySelector("#dusseldot");
+window.addEventListener('resize', event => {
+  const text = document.querySelector("#dusseldot");
 
-  var topScroll = window.pageYOffset - document.documentElement.clientTop;
-  var topScrollN = (topScroll - 0) * (150 - 50) / (918 - 0) + 50;
+  let windowWidth = event.currentTarget.innerWidth;
+  let windowHeight = event.currentTarget.innerHeight;
 
-  text.style.fontVariationSettings = `'wdth' ${topScrollN}`;
+  let windowWidthN = map(windowWidth, 600, 1280, 150, 50);
+  let windowHeightN = map(windowHeight, 300, 720, 150, 50);
+  
+  text.style.fontVariationSettings = `'wdth' ${windowWidthN < windowHeightN ? windowWidthN : windowHeightN}`
 });
+
+const map = (value, inMin, inMax, outMin, outMax) => (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
